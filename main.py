@@ -1,4 +1,5 @@
 import os,time
+from typing import List
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -30,8 +31,19 @@ class Sudoku:
         # This Function Used C++ Compiler To Solve Sudoku
         # Because It Fast 
         # I Will Update This Code With Python Solver 😁
-        os.system("g++ SudokuSolver.cpp -o SudokuSolver && SudokuSolver") 
-                
+        os.system("g++ SudokuSolver.cpp -o SudokuSolver && SudokuSolver")
+        
+
+    def __AnswerList(self):
+        Solution=[]
+        with open("solved.txt","r") as File:
+            for value in File:
+                temp=value.split(" ")           # Reading Row And Split By Space ['7','9','1','2','6','8','3','4','5','\n']
+                for i in range(0,9):            # Alway Escape Element Is End Of List So Range(0,9)
+                    Solution.append(int(temp[i]))
+
+        return Solution
+
 
     
     def NYTime(self):
@@ -126,8 +138,32 @@ class Sudoku:
         self.driver.close()
 
             
+    def WebSudoku(self):
+        __url="https://nine.websudoku.com/?"
+        self.driver.get(__url)
 
+        print("Hello")
+        # self.driver.implicitly_wait(100)
+        print("World")
+        elements=[]
+        for row in range(0,9):
+            for col in range(0,9):
+                cell=self.driver.find_element_by_id(f"c{col}{row}")
+                value=cell.find_element_by_tag_name("input").get_attribute("value")
+                if value=="":
+                    elements.append("-1 ")
+                else:
+                    elements.append(value+" ")
 
+        self.__WriteDown(elements)
 
+        self.__SolvedThis()
 
+        Solution=self.__AnswerList()
 
+        counter=0
+        for row in range(0,9):
+            for col in range(0,9):
+                cell=self.driver.find_element_by_id(f'c{col}{row}').find_element_by_tag_name("input")
+                cell.send_keys(Solution[counter])
+                counter+=1
