@@ -1,8 +1,9 @@
 # Sudoku_Player
  Using WebAutomation Sudoku Bot Solve Given Sudoku Of Given WebSite Like 
- **1. NYTime 
- 2. WebSudoku 
- 3. Livesudoku
+ 
+ **1. NYTime  
+ 2. WebSudoku    
+ 3. Livesudoku 
  And Many More Will Be Added**
  ### Requirement
  **1)WebDriver**
@@ -15,7 +16,7 @@
 To Install Selenium  `pip install selenium` or `pip3 install selenium`
 
 ---
-##Information
+## Information
 
 I Have Written Sudoku Solving Part In C++ **(Comment Out The C++ Part in main.py def __solveThis)**
 But Because Of All Major Code Include In Python
@@ -25,7 +26,7 @@ And Used By main.py
 
 ___
 
-##Working
+## Working
 
 As User Input One Of Listed Website
 It Will Open In WebDriver And That Url Get Loaded
