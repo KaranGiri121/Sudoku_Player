@@ -97,8 +97,12 @@ class Sudoku:
                 cell.click()                                 # Selecting That Empty Cell
                 button[Solution[pos]-1].click()              # Button[0,8] So -1 And Solution Give Button Number And Click
         
-        time.sleep(1000)
-        self.driver.close()
+        user=input("q:Quit ")
+        if user=='q':
+            self.driver.close()
+        else:
+            os.system("cls")
+            main()
 
     def LiveSudoku(self):
         __url="https://www.livesudoku.com/en/sudoku/easy/"      # Url Of LiveSudoku Game
@@ -134,8 +138,12 @@ class Sudoku:
             action.perform()                        # ActionChains To Perform 
 
 
-        time.sleep(1000)
-        self.driver.close()
+        user=input("q:Quit And Back To Menu Any Key")
+        if user=="q" or user=="Q":
+            self.driver.close()
+        else:
+            os.system("cls")
+            main()
 
             
     def WebSudoku(self):
@@ -160,10 +168,50 @@ class Sudoku:
         self.__SolvedThis()
 
         Solution=self.__AnswerList()
-
+        print(Solution)
         counter=0
         for row in range(0,9):
             for col in range(0,9):
                 cell=self.driver.find_element_by_id(f'c{col}{row}').find_element_by_tag_name("input")
                 cell.send_keys(Solution[counter])
                 counter+=1
+        
+
+        self.driver.find_element_by_class_name("bs").click()
+        user=input("q:Quit And Back To Menu Any Key")
+        if user=="q" or user=="Q":
+            self.driver.close()
+        else:
+            os.system("cls")
+            main()
+
+    
+print("Welcome To Sudoku Automation")
+def main():
+    print('''Website List
+1) NYTime
+2) WebSudoku
+3) LiveSudoku
+
+''')
+    user=int(input("Enter Your Choice : "))
+    CallSudoku=Sudoku()
+    sudokoList={
+        1:CallSudoku.NYTime,
+        2:CallSudoku.WebSudoku,
+        3:CallSudoku.LiveSudoku
+    }
+
+    sudokoList[user]()
+
+
+
+
+
+
+
+
+
+
+if __name__=='__main__':
+    main()
