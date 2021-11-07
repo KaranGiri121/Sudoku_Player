@@ -32,6 +32,8 @@ class Sudoku:
         # Because It Fast 
         # I Will Update This Code With Python Solver 😁
         os.system("g++ SudokuSolver.cpp -o SudokuSolver && SudokuSolver")
+
+        os.system("python sudoku.py")
         
 
     def __AnswerList(self):
