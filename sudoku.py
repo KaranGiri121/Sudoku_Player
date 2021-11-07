@@ -1,6 +1,3 @@
-from typing import List, Sized
-
-
 sudoku=[]
 
 with open("sudoku.txt","r") as File:

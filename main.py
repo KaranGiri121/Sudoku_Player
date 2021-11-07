@@ -1,10 +1,9 @@
-import os,time
-from typing import List
+import os
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-PATH=r"C:\chromedriver"
+PATH=r"Driver\chromedriver"
 class Sudoku:
     def __init__(self):
         options = webdriver.ChromeOptions()
@@ -31,7 +30,7 @@ class Sudoku:
         # This Function Used C++ Compiler To Solve Sudoku
         # Because It Fast 
         # I Will Update This Code With Python Solver 😁
-        os.system("g++ SudokuSolver.cpp -o SudokuSolver && SudokuSolver")
+        # os.system("g++ SudokuSolver.cpp -o SudokuSolver && SudokuSolver")
 
         os.system("python sudoku.py")
         
@@ -99,8 +98,8 @@ class Sudoku:
                 cell.click()                                 # Selecting That Empty Cell
                 button[Solution[pos]-1].click()              # Button[0,8] So -1 And Solution Give Button Number And Click
         
-        user=input("q:Quit ")
-        if user=='q':
+        user=input("q:Quit Or Any Key For Menu ")
+        if user=="q" or user=="Q":
             self.driver.close()
         else:
             os.system("cls")
@@ -140,7 +139,7 @@ class Sudoku:
             action.perform()                        # ActionChains To Perform 
 
 
-        user=input("q:Quit And Back To Menu Any Key")
+        user=input("q:Quit Or Any Key For Menu ")
         if user=="q" or user=="Q":
             self.driver.close()
         else:
@@ -180,7 +179,7 @@ class Sudoku:
         
 
         self.driver.find_element_by_class_name("bs").click()
-        user=input("q:Quit And Back To Menu Any Key")
+        user=input("q:Quit Or Any Key For Menu ")
         if user=="q" or user=="Q":
             self.driver.close()
         else:
@@ -205,15 +204,6 @@ def main():
     }
 
     sudokoList[user]()
-
-
-
-
-
-
-
-
-
-
+    
 if __name__=='__main__':
     main()
