@@ -1,5 +1,6 @@
 import os
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 
@@ -49,13 +50,14 @@ class Sudoku:
     
     def NYTime(self):
         __url="https://www.nytimes.com/puzzles/sudoku/easy" # Url Of NYTime Sudoku Puzzle With Easy Level
-        self.driver.get(__url)                              # Opening NYTime Url In Broswer
+        self.driver.get(__url)
+                                      # Opening NYTime Url In Broswer
 
         # Wait For 10Sec Till Browser Complety Loaded
 
         self.driver.implicitly_wait(10)
-        element=self.driver.find_elements_by_class_name("su-cell")              # Fetching All Value Of Sudoku 
-        button=self.driver.find_elements_by_class_name("su-keyboard__number")   # Fetching Inbuilt Number Pad For Input
+        element=self.driver.find_elements(By.CLASS_NAME,"su-cell")              # Fetching All Value Of Sudoku 
+        button=self.driver.find_elements(By.CLASS_NAME,"su-keyboard__number")   # Fetching Inbuilt Number Pad For Input
 
                                                             # Update..........
 
@@ -63,9 +65,9 @@ class Sudoku:
         #    Candidate Is Used When You Are Not Confirmed 
         #    Normal NumberPad Is Used When Your Sure!
         try:    # Checking NormalMode Is On/Off 
-            self.driver.find_element_by_class_name("normalMode") # Do Noting If NormalMode Is On OtherWise Raise Exception Handle Below
+            self.driver.find_element(By.CLASS_NAME,"normalMode") # Do Noting If NormalMode Is On OtherWise Raise Exception Handle Below
         except Exception:
-            self.driver.find_element_by_class_name("normal").click() # Finding Normal Button And Activate NormalPad Mode
+            self.driver.find_element(By.CLASS_NAME,"normal").click() # Finding Normal Button And Activate NormalPad Mode
 
         # Filtering element list of tag to Fetch Usefull Infomation And Append In elements List
         elements=[]
@@ -109,11 +111,11 @@ class Sudoku:
         __url="https://www.livesudoku.com/en/sudoku/easy/"      # Url Of LiveSudoku Game
         self.driver.get(__url)                                  # Loading Window For Url
 
-        element=self.driver.find_elements_by_class_name("cellnormal")   # All The Cell In LiveSudoku Is Written In cellnormal Class
+        element=self.driver.find_elements(By.CLASS_NAME,"cellnormal")   # All The Cell In LiveSudoku Is Written In cellnormal Class
         elements=[]                                             # Used To Store All Cell Value And InPlace Of Empty -1 Will Store
         for cell in element:
             try:                    # Checking If Cell Is Empty Or Not
-                tag=cell.find_element_by_tag_name("span")       # If Cell Have Value Then Span Is Present
+                tag=cell.find_element(By.TAG_NAME,"span")       # If Cell Have Value Then Span Is Present
                 data=tag.text                                   # Extract Span Text Or Cell Value
 
             except Exception:       # If Span Is Not Find Then Cell Is Empty
@@ -157,8 +159,8 @@ class Sudoku:
         elements=[]
         for row in range(0,9):
             for col in range(0,9):
-                cell=self.driver.find_element_by_id(f"c{col}{row}")
-                value=cell.find_element_by_tag_name("input").get_attribute("value")
+                cell=self.driver.find_element(By.ID,f"c{col}{row}")
+                value=cell.find_element(By.TAG_NAME,"input").get_attribute("value")
                 if value=="":
                     elements.append("-1 ")
                 else:
@@ -173,12 +175,12 @@ class Sudoku:
         counter=0
         for row in range(0,9):
             for col in range(0,9):
-                cell=self.driver.find_element_by_id(f'c{col}{row}').find_element_by_tag_name("input")
+                cell=self.driver.find_element(By.ID,f'c{col}{row}').find_element(By.TAG_NAME,"input")
                 cell.send_keys(Solution[counter])
                 counter+=1
         
 
-        self.driver.find_element_by_class_name("bs").click()
+        self.driver.find_element(By.CLASS_NAME,"bs").click()
         user=input("q:Quit Or Any Key For Menu ")
         if user=="q" or user=="Q":
             self.driver.close()
